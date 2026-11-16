@@ -25,11 +25,10 @@ Ein voll funktionsfähiger URL-Shortener, entwickelt mit Java, Spring Boot und e
 `GET http://localhost:8080/api/shorten?url=https://www.wikipedia.org`
 
 **Antwort:**
-```json
-{
-  "shortCode": "yeBDAZ",
-  "originalUrl": "https://www.wikipedia.org"
-}
+    {
+      "shortCode": "yeBDAZ",
+      "originalUrl": "https://www.wikipedia.org"
+    }
 
 ### 2. Weiterleitung
 `GET /{shortCode}`
@@ -40,9 +39,31 @@ Ruft man diese URL auf, wird man mit einem HTTP 302 Status auf die ursprünglich
 `GET /api/stats/{shortCode}`
 
 **Antwort:**
-```json
-{
-  "shortCode": "yeBDAZ",
-  "originalUrl": "https://www.wikipedia.org",
-  "clickCount": 3
-}
+    {
+      "shortCode": "yeBDAZ",
+      "originalUrl": "https://www.wikipedia.org",
+      "clickCount": 3
+    }
+
+## 💻 Lokale Ausführung
+
+### Voraussetzungen
+- Java 21 oder höher
+- Maven
+- Docker (optional)
+
+### Starten mit Maven (Eclipse)
+1. Projekt importieren.
+2. `Run As -> Maven install` ausführen.
+3. `Run As -> Spring Boot App` starten.
+4. Öffne `http://localhost:8080` im Browser.
+
+### Starten mit Docker
+    # Image bauen
+    docker build -t urlshortener-app .
+
+    # Container starten (mit Volume für die Datenbank)
+    docker run -d -p 8080:8080 -v "C:\Users\Tay\Projekt\urlshortener\data:/app/data" --name mein-shortener urlshortener-app
+
+---
+*Entwickelt von [Dein Name](https://github.com/Tay674)*
