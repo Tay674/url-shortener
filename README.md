@@ -30,3 +30,19 @@ Ein voll funktionsfähiger URL-Shortener, entwickelt mit Java, Spring Boot und e
   "shortCode": "yeBDAZ",
   "originalUrl": "https://www.wikipedia.org"
 }
+
+### 2. Weiterleitung
+`GET /{shortCode}`
+
+Ruft man diese URL auf, wird man mit einem HTTP 302 Status auf die ursprüngliche URL weitergeleitet.
+
+### 3. Statistik abrufen
+`GET /api/stats/{shortCode}`
+
+**Antwort:**
+```json
+{
+  "shortCode": "yeBDAZ",
+  "originalUrl": "https://www.wikipedia.org",
+  "clickCount": 3
+}
