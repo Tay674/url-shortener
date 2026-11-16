@@ -24,7 +24,7 @@ public class UrlController {
         return Map.of("shortCode", code, "originalUrl", url);
     }
 
-    @GetMapping("/{code}")
+    @GetMapping("/{code:[a-zA-Z0-9]{6}}")
     public ResponseEntity<Void> redirect(@PathVariable String code) {
         Optional<UrlMapping> optionalMapping = repository.findByShortCode(code);
         
