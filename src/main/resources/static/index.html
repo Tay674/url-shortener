@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mein URL Shortener</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 500px; }
+        h1 { color: #333; margin-bottom: 30px; }
+        input[type="text"] { width: 80%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; }
+        button { background-color: #007bff; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+        button:hover { background-color: #0056b3; }
+        #result { margin-top: 30px; font-size: 18px; display: none; }
+        a { color: #007bff; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>URL Shortener</h1>
+    <input type="text" id="urlInput" placeholder="Lange URL hier einfügen (z.B. https://...)">
+    <br>
+    <button onclick="shortenUrl()">Kürzen!</button>
+    
+    <div id="result">
+        <p>Dein kurzer Link:</p>
+        <a id="shortLink" href="#" target="_blank"></a>
+    </div>
+</div>
+
+<script>
+    async function shortenUrl() {
+        const urlInput = document.getElementById('urlInput').value;
+        const resultDiv = document.getElementById('result');
+        const shortLinkA = document.getElementById('shortLink');
+
+        if (!urlInput) {
+            alert("Bitte gib eine URL ein!");
+            return;
+        }
+
+        try {
+            // Wir rufen unsere eigene API auf
+            const response = await fetch(`/api/shorten?url=${encodeURIComponent(urlInput)}`);
+            
+            if (response.ok) {
+                const data = await response.json();
+                // Generiere den absoluten Link für die Anzeige
+                const fullShortUrl = window.location.origin + "/" + data.shortCode;
+                
+                shortLinkA.href = fullShortUrl;
+                shortLinkA.innerText = fullShortUrl;
+                resultDiv.style.display = "block";
+            } else {
+                alert("Fehler beim Kürzen der URL.");
+            }
+        } catch (error) {
+            console.error("Fehler:", error);
+            alert("Der Server ist nicht erreichbar.");
+        }
+    }
+</script>
+
+</body>
+</html>
