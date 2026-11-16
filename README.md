@@ -63,7 +63,7 @@ Ruft man diese URL auf, wird man mit einem HTTP 302 Status auf die ursprünglich
     docker build -t urlshortener-app .
 
     # Container starten (mit Volume für die Datenbank)
-    docker run -d -p 8080:8080 -v "C:\Users\Tay\Projekt\urlshortener\data:/app/data" --name mein-shortener urlshortener-app
+    docker run -d -p 8080:8080 -v "C:\Users\DEIN NAME\Projekt\urlshortener\data:/app/data" --name mein-shortener urlshortener-app
 
 ---
-*Entwickelt von [Dein Name](https://github.com/Tay674)*
+*Entwickelt von [Tay674](https://github.com/Tay674)*
