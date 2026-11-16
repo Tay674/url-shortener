@@ -27,6 +27,7 @@
     <div id="result">
         <p>Dein kurzer Link:</p>
         <a id="shortLink" href="#" target="_blank"></a>
+				<p id="statsInfo" style="color: #666; font-size: 14px; margin-top: 15px;"></p>
     </div>
 </div>
 
@@ -53,6 +54,22 @@
                 shortLinkA.href = fullShortUrl;
                 shortLinkA.innerText = fullShortUrl;
                 resultDiv.style.display = "block";
+				try {
+				    // 1. Wir rufen die Stats-API auf. Welche Variable enthält den generierten Code?
+				    const statsResponse = await fetch(`/api/stats/${data.shortCode}`); 
+				    
+				    if (statsResponse.ok) {
+				        const statsData = await statsResponse.json();
+				        
+				        // 2. Wir holen uns das neue HTML-Element
+				        const statsInfo = document.getElementById('statsInfo');
+				        
+				        // 3. Wir schreiben den Text rein. Welche Variable aus statsData enthält die Klicks?
+				        statsInfo.innerText = "Klicks bisher: " + statsData.clickCount;
+				    }
+				} catch (error) {
+				    console.error("Fehler beim Laden der Statistik", error);
+				}
             } else {
                 alert("Fehler beim Kürzen der URL.");
             }
